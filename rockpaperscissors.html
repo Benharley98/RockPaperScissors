@@ -1,91 +1,97 @@
 <html>
-    <script>
-        /*Creates a random selection for the computer*/
-        function computerPlay() {
-            let RandomNum,computerSelection;
-            RandomNum=Math.random();
-            if (RandomNum<= 0.33 && RandomNum>0) {
-                return computerSelection='Rock';
-            }
-            else if (RandomNum<= 0.67 && RandomNum>0.33) {
-                return computerSelection='Paper';
-            }
-            else  {
-                return computerSelection='Scissors';
-            }
+<script>
+    /*Creates a random selection for the computer*/
+    function computerPlay() {
+        let RandomNum, computerSelection;
+        RandomNum = Math.random();
+        if (RandomNum <= 0.33 && RandomNum > 0) {
+            return computerSelection = 'Rock';
         }
-        /*Compares all possible selections*/
-        function playRound(playerSelection,computerSelection) {
-            if (playerSelection === computerSelection) {
-                return 2;
-            }
-            else if (playerSelection === 'Rock' && computerSelection=='Scissors') {
-                return 1;
-            }
-            else if (playerSelection === 'Rock' && computerSelection=='Paper') {
-                return 0;
-            }
-            else if (playerSelection === 'Paper' && computerSelection=='Scissors') {
-                return 1;
-            }
-            else if (playerSelection === 'Paper' && computerSelection=='Rock') {
-                return 0;
-            }
-            else if (playerSelection === 'Scissors' && computerSelection=='Paper') {
-                return 1;
-            }
-            else if (playerSelection === 'Scissors' && computerSelection=='Rock') {
-                return 0;
-            }
+        else if (RandomNum <= 0.67 && RandomNum > 0.33) {
+            return computerSelection = 'Paper';
         }
-        /*Loops through 5 rounds of rock paper scissors */
-        function game() {
-            let playerSelection,computerSelection,i=0,compScore=0,playerScore=0,result;
-            while (i<5){
-                playerSelection=window.prompt("Please pick Rock/Paper/Scissors:");
-                playerSelection = playerSelection.toLowerCase();
-                //Makes sure the input is correct (e.g. rOck/Rock/ROCK/PaPeR are all correct inputs)
-                while (1) {
-                    playerSelection = window.prompt("Incorrect input!\nPlease pick Rock/Paper/Scissors:");
-                    playerSelection=playerSelection.toLowerCase();
-                    if (playerSelection === "rock"||"paper"||"scissors") {
-                        break;
-                    }
-                }
-                //Converts player selection string to string with capitalized string
-                switch (playerSelection) {
-                    case "rock":
-                        playerSelection="Rock"
-                        break;
-                    case "paper":
-                        playerSelection="Paper"
-                        break;
-                    case "scissors":
-                        playerSelection="Scissors"
-                        break;
-                }
-                computerSelection=computerPlay();
+        else {
+            return computerSelection = 'Scissors';
+        }
+    }
+    /*Compares all possible selections*/
+    function playRound(playerSelection, computerSelection) {
+        if (playerSelection === computerSelection) {
+            return 2;
+        }
+        else if (playerSelection === 'Rock' && computerSelection == 'Scissors') {
+            return 1;
+        }
+        else if (playerSelection === 'Rock' && computerSelection == 'Paper') {
+            return 0;
+        }
+        else if (playerSelection === 'Paper' && computerSelection == 'Scissors') {
+            return 1;
+        }
+        else if (playerSelection === 'Paper' && computerSelection == 'Rock') {
+            return 0;
+        }
+        else if (playerSelection === 'Scissors' && computerSelection == 'Paper') {
+            return 1;
+        }
+        else if (playerSelection === 'Scissors' && computerSelection == 'Rock') {
+            return 0;
+        }
+    }
+    /*Loops through 5 rounds of rock paper scissors */
+    function game() {
+        let computerSelection, i = 0, compScore = 0, playerScore = 0, result;
+        var playerSelections = []
+        do{
+            
+            let choice = window.prompt("Please pick Rock/Paper/Scissors:")
+            choice = choice.toLowerCase();
+            console.log(choice);
+            if (choice === "rock" || choice === "paper" || choice === "scissors") {
+                playerSelections.push(choice)
+            }else{
+                alert("Incorrect input!\nPlease pick Rock/Paper/Scissors:");
+            }
+        } while (playerSelections.length < 5)
+        for (let [index,playerSelection] of playerSelections.entries()) {
+            console.log(playerSelection);
+            //Makes sure the input is correct (e.g. rOck/Rock/ROCK/PaPeR are all correct inputs)
 
-                console.log('Round 1:\nThe Player Chose: %s\nThe Computer Chose: %s\n\n',playerSelection,computerSelection);
-                //Counts score 
-                result=playRound(playerSelection, computerSelection);
-                
-                if (result===1) {
-                    console.log('The Player Wins!\n\n');
-                    playerScore++;
-                }
-                else if (result===0) {
-                    console.log('The Computer Wins!\n\n');
-                    compScore++;
-                }
-                else {
-                    console.log("Draw!\n\n")
-                }
-                i++;
+            //Converts player selection string to string with capitalized string
+            switch (playerSelection) {
+                case "rock":
+                    playerSelection = "Rock"
+                    break;
+                case "paper":
+                    playerSelection = "Paper"
+                    break;
+                case "scissors":
+                    playerSelection = "Scissors"
+                    break;
             }
-            //Displays final scores
-            console.log('The game ends with the scores:\nPlayer: %d Points\nComputer: %d Points',playerScore,compScore);
+            computerSelection = computerPlay();
+
+            alert('Round '+index+1+':\nThe Player Chose: '+playerSelection+'\nThe Computer Chose: '+computerSelection+'\n\n');
+            //Counts score 
+            result = playRound(playerSelection, computerSelection);
+
+            if (result === 1) {
+                alert('The Player Wins!\n\n');
+                playerScore++;
+            }
+            else if (result === 0) {
+                alert('The Computer Wins!\n\n');
+                compScore++;
+            }
+            else {
+                alert("Draw!\n\n")
+            }
+            i++;
         }
-        game();
-    </script>
+        //Displays final scores
+        alert('The game ends with the scores:\nPlayer: '+playerScore+' Points\nComputer: '+compScore+' Points');
+    }
+    game();
+</script>
+
 </html>
